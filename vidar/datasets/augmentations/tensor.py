@@ -13,10 +13,16 @@ def to_tensor(matrix, tensor_type='torch.FloatTensor'):
 
 
 @iterate1
-def to_tensor_image(image, tensor_type='torch.FloatTensor'):
-    """Casts an image to a torch.Tensor"""
+def to_tensor_image(image, tensor_type='torch.FloatTensor', device=torch.device('cuda')):
+    """
+    Casts an image to a torch.Tensor
+    
+    Args:
+        image : image or list of images (will iterate, not batchified   )
+        tensor_type : string of the type of returned tensor. 'torch.FloatTensor' by default.
+    """
     transform = transforms.ToTensor()
-    return transform(image).type(tensor_type)
+    return transform(image).type(tensor_type).to(device)
 
 
 @iterate1

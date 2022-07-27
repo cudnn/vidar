@@ -158,7 +158,7 @@ class Wrapper(torch.nn.Module, ABC):
         Returns
         -------
         output : Dict
-            Dictionary with model outputs
+            Dictionary with modelrun_arch outputs
         """
         batch = flip_batch(batch) if flip else batch
         output = self.arch(batch, epoch=epoch)
@@ -186,6 +186,7 @@ class Wrapper(torch.nn.Module, ABC):
         """Processes a validation batch"""
         # from vidar.utils.data import break_batch
         # batch = break_batch(batch)
+
 
         if self.mixed_precision:
             with torch.cuda.amp.autocast():
@@ -248,6 +249,7 @@ class Wrapper(torch.nn.Module, ABC):
         # Evaluate different tasks
         metrics, predictions = OrderedDict(), OrderedDict()
         for task in self.metrics:
+            print(type(task))
             task_metrics, task_predictions = \
                 self.metrics[task].evaluate(batch, output['predictions'],
                     flipped_output['predictions'] if flipped_output else None)

@@ -8,6 +8,8 @@ import torch.nn as nn
 import torch.utils.model_zoo as model_zoo
 import torchvision.models as models
 
+from vidar.utils.distributed import dist_mode
+
 RESNET_VERSIONS = {
     18: models.resnet18,
     34: models.resnet34,
